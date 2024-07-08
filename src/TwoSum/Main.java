@@ -1,6 +1,6 @@
 package TwoSum;
 
-import org.w3c.dom.ls.LSOutput;
+import java.util.HashMap;
 
 public class Main {
     public static void main(String[] args) {
@@ -16,16 +16,18 @@ public class Main {
 
 class TwoSum {
     public int[] twoSum(int[] nums, int target) {
-        int[] resultIndex = new int[2];
+        int maxValue = 0;
+        int[] resultIndex = {-1, -1};
+        HashMap<Integer, Integer> map = new HashMap<>();
         for(int iterator = 0; iterator < nums.length; iterator++) {
-            for(int jterator = iterator + 1; jterator < nums.length; jterator++) {
-                if((nums[iterator] + nums[jterator]) == target) {
-                    resultIndex[0] = iterator;
-                    resultIndex[1] = jterator;
-
-                    return resultIndex;
-                }
+            int num = nums[iterator];
+            int moreNeeded = target - num;
+            if(map.containsKey(moreNeeded)) {
+                resultIndex[0] = map.get(moreNeeded);
+                resultIndex[1] = iterator;
             }
+
+            map.put(nums[iterator], iterator);
         }
 
         return resultIndex;
